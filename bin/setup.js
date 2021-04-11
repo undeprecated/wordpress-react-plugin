@@ -48,7 +48,7 @@ rl.question("Plugin Name: ", function(value) {
 
 rl.on("close", function() {
     console.log(options); 
-    //build_template(options);
+    build_template(options);
     process.exit(0);
 });
 
@@ -64,7 +64,7 @@ function build_template(options) {
     // apply namespace to composer.json
     apply_options(options, ['plugin/composer.json']);
     // rename plugin/plugin.php to slug
-    // rename plugin folder to slug
+    rename('plugin/plugin.php', path.join(options.slug, options.slug +'.php'));
 }
 
 function apply_options(options, files) {
@@ -86,6 +86,12 @@ function apply_options(options, files) {
                 if (err) return console.log(err);
             });
         });
+    });
+}
+
+function rename(from_path, to_path) {
+    fs.rename(from_path, to_path, function(err) {
+        if ( err ) console.log('ERROR: ' + err);
     });
 }
 
