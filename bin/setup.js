@@ -65,10 +65,10 @@ function build_template(options) {
     // apply namespace to composer.json
     apply_options(options, ['plugin/composer.json']);
     // rename plugin/plugin.php to slug
-    rename('plugin/plugin.php', path.join(options.slug, options.slug +'.php'));
+    rename('plugin/plugin.php', path.join(options.plugin_slug, options.plugin_slug +'.php'));
 }
 
-function apply_options(options, files) {
+function apply_options(options, file) {
     files.forEach(file => {
         fs.readFile(file, 'utf8', function (err,data) {
             if (err) {
