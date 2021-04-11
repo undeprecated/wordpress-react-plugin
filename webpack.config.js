@@ -1,10 +1,9 @@
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './frontend/index.js',
     output: {
-        path: path.resolve(__dirname, 'plugin/assets'),
+        path: path.resolve(__dirname, '${plugin_slug}/assets'),
         filename: 'js/app.js',
     },
     resolve: {

@@ -2,7 +2,7 @@
 /**
  * Class file used to load our plugins app.js file created by React.
  */
-namespace Plugin;
+namespace ${namespace};
 
 class App
 {
@@ -10,31 +10,31 @@ class App
 
     public static function init()
     {
-        add_action('admin_menu', ['Plugin\App', 'register_plugin_menu']);
+        add_action('admin_menu', ['${namespace}\App', 'register_plugin_menu']);
     }
 
     public static function register_plugin_menu()
     {
         $menu = add_menu_page(
-            'Plugin',
-            'Plugin',
+            '${plugin_name}',
+            '${plugin_name}',
             'manage_options',
-            'plugin',
-            ['Plugin\App', 'plugin_front_end'],
+            '${plugin_slug}',
+            ['${namespace}\App', 'plugin_front_end'],
             self::$menu_icon,
             '81'
         );
 
-        add_action('admin_print_scripts-' . $menu, ['Plugin\App', 'load_app']);
+        add_action('admin_print_scripts-' . $menu, ['${namespace}\App', 'load_app']);
     }
 
     public static function load_app()
     {
         wp_enqueue_script(
-            'plugin_app_js',
-            plugins_url( 'assets/js/app.js', PLUGIN_BASE_FILE),
+            '${plugin_slug}_app_js',
+            plugins_url( 'assets/js/app.js', ${DEFINE_BASE}_BASE_FILE),
             [],
-            PLUGIN_VERSION,
+            ${DEFINE_BASE}_VERSION,
             true
         );
     }

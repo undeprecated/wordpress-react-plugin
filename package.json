@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --mode=development --watch",
     "start": "webpack serve --mode=development --open --hot",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "setup": "node ./bin/setup.js"
+  },
+  "bin": {
+    "wordpress-react-plugin": "./bin/start.js"
   },
   "keywords": [
     "wordpress",
