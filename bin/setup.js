@@ -51,10 +51,18 @@ rl.question("Plugin Name: ", function(value) {
 });
 
 rl.on("close", function() {
-    console.log(options); 
-    build_template(options);
+    // @TODO: validate options
+    // @TODO: check for quit ctrl+c commands
+    run_setup();
     process.exit(0);
 });
+
+function run_setup() {
+    build_template(options);
+    // @TODO: install dependencies
+    // npm install
+    // $options.slug/composer install
+}
 
 /**
  * Replace our template files with prompted values.
@@ -89,7 +97,6 @@ function apply_options(options, files) {
 }
 
 function rename(from_path, to_path) {
-    console.log('rename ',path.resolve(base_path, from_path), path.resolve(base_path, to_path));
     fs.rename(path.resolve(base_path, from_path), path.resolve(base_path, to_path), function(err) {
         if ( err ) console.log('ERROR: ' + err);
     });

@@ -10,9 +10,6 @@
     "build": "webpack --mode=production",
     "setup": "node ./bin/setup.js"
   },
-  "bin": {
-    "wordpress-react-plugin": "./bin/start.js"
-  },
   "keywords": [
     "wordpress",
     "react",

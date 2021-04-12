@@ -16,13 +16,30 @@ This project also makes use of PHP `namespaces`.
 - Webpack v5
 - NodeJS v15.2.1
 
+### Setup/Installing
+
+`npm run setup`
+
+`npm install`
+
+`composer install`
+
+#### Setup Prompts
+
+_Plugin Name:_ - Name of your plugin. Used for the WordPress Plugin Name heading of your plugin.php file.
+_Plugin Author:_ - Author of your plugin.
+_Plugin URI:_ - URI of your plugin.
+_Plugin Description:_ - Plugin description.
+_Plugin Slug:_ - Plugin slug. Automatically derived from plugin name. Setting this value will move `plugin\plugin.php` to `slug\slug.php`.
+_Plugin Version:_ - Version number. Defaults to 1.0.0.
+_Namespace:_ - namespace to use in your PHP files. Defaults to plugin name without spaces.
+_DEFINE_BASE:_ - Used to prefix `define()` constants in your plugin. Defaults to value of namespace uppercased.
+
 ### Usage
 
 Replace occurrences of `plugin` (include the directory) with the name of your WordPress plugin. You will also want to update the PHP
 
 #### development
-
-Run `composer install`.
 
 Run `npm run watch`.
 
