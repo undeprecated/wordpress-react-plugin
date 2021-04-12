@@ -1,10 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const { exit } = require('process');
 const readline = require("readline");
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
+const base_path = path.resolve('../', 'wordpress-react-plugin');
 
 const options = {
     "plugin_name": "",
@@ -23,10 +26,10 @@ rl.question("Plugin Name: ", function(value) {
         options.plugin_author = value;
         rl.question("Plugin URI: ", function(value) {
             options.plugin_uri = value;
-            rl.question("Plugin Slug: ", function(value) {
-                options.plugin_slug = value;
-                rl.question("Plugin Description: ", function(value) {
-                    options.description = value;
+            rl.question("Plugin Description: ", function(value) {
+                options.description = value;
+                rl.question("Plugin Slug: ", function(value) {
+                    options.plugin_slug = value;
                     rl.question("Plugin Version: ", function(value) {
                         options.version = value;
                         rl.question("Namespace: ", function(value) {
@@ -41,8 +44,8 @@ rl.question("Plugin Name: ", function(value) {
                     });
                     rl.write(options.version);
                 });
+                rl.write(create_slug(options.plugin_name));
             });
-            rl.write(create_slug(options.plugin_name));
         });
     });
 });
@@ -65,33 +68,29 @@ function build_template(options) {
     // apply namespace to composer.json
     apply_options(options, ['plugin/composer.json']);
     // rename plugin/plugin.php to slug
-    rename('plugin/plugin.php', path.join(options.plugin_slug, options.plugin_slug +'.php'));
+    rename('plugin', options.plugin_slug);
+    rename(path.join(options.plugin_slug, 'plugin.php'), options.plugin_slug +'.php');
 }
 
-function apply_options(options, file) {
+function apply_options(options, files) {
     files.forEach(file => {
-        fs.readFile(file, 'utf8', function (err,data) {
-            if (err) {
-                return console.log(err);
-            }
+        let file_path = path.resolve(base_path, file);
+        let data = fs.readFileSync(file_path, 'utf8');
+       
+        for (const [key, value] of Object.entries(options)) {
+            let find = '\\$\\{'+ key +'\\}';
+            let re = new RegExp(find, 'g');
 
-            for (const [option, value] of Object.entries(options)) {
-                console.log(`${option}: ${value}`);
-                let find = '${'+ option +'}';
-                let re = new RegExp(find, 'g');
-
-                data = data.replace(re, value);
-            }
-            
-            fs.writeFile(file, data, 'utf8', function (err) {
-                if (err) return console.log(err);
-            });
-        });
+            data = data.replace(re, value);
+        }
+        
+        fs.writeFileSync(file_path, data, 'utf8');
     });
 }
 
 function rename(from_path, to_path) {
-    fs.rename(from_path, to_path, function(err) {
+    console.log('rename ',path.resolve(base_path, from_path), path.resolve(base_path, to_path));
+    fs.rename(path.resolve(base_path, from_path), path.resolve(base_path, to_path), function(err) {
         if ( err ) console.log('ERROR: ' + err);
     });
 }
