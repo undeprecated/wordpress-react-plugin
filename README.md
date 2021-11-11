@@ -16,6 +16,8 @@ This project also makes use of PHP `namespaces`.
 
 ## Setup/Installing
 
+`git clone https://github.com/undeprecated/wordpress-react-plugin.git`
+
 `npm run setup`
 
 `npm install`
