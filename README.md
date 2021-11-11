@@ -24,21 +24,14 @@ This project also makes use of PHP `namespaces`.
 
 #### Setup Prompts
 
-_Plugin Name:_ - Name of your plugin. Used for the WordPress Plugin Name heading of your plugin.php file.
-
-_Plugin Author:_ - Author of your plugin.
-
-_Plugin URI:_ - URI of your plugin.
-
-_Plugin Description:_ - Plugin description.
-
-_Plugin Slug:_ - Plugin slug. Automatically derived from plugin name. Setting this value will move `plugin\plugin.php` to `slug\slug.php`.
-
-_Plugin Version:_ - Version number. Defaults to 1.0.0.
-
-_Namespace:_ - namespace to use in your PHP files. Defaults to plugin name without spaces.
-
-_DEFINE_BASE:_ - Used to prefix `define()` constants in your plugin. Defaults to value of namespace uppercased.
+1. Plugin Name - Name of your plugin. Used for the WordPress Plugin Name heading of your plugin.php file.
+1. Plugin Author - Author of your plugin.
+1. Plugin URI - URI of your plugin.
+1. Plugin Description - Plugin description.
+1. Plugin Slug - Plugin slug. Automatically derived from plugin name. Setting this value will move `plugin\plugin.php` to `slug\slug.php`.
+1. Plugin Version - Version number. Defaults to 1.0.0.
+1. Namespace - namespace to use in your PHP files. Defaults to plugin name without spaces.
+1. DEFINE_BASE - Used to prefix `define()` constants in your plugin. Defaults to value of namespace uppercased.
 
 ## Usage
 
