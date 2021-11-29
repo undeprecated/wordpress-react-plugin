@@ -1,17 +1,20 @@
 const path = require('path');
 
 module.exports = {
-    entry: './frontend/index.js',
+    entry: './index.js',
     output: {
-        path: path.resolve(__dirname, '${plugin_slug}/assets'),
+        path: path.resolve(__dirname, '../${plugin_slug}/assets'),
         filename: 'js/app.js',
     },
     resolve: {
-        modules: [path.join(__dirname, 'frontend'), 'node_modules'],
+        modules: [path.join(__dirname, '.'), 'node_modules'],
         alias: {
             react: path.join(__dirname, 'node_modules', 'react'),
         },
     },
+    plugins: [new MiniCssExtractPlugin({
+        filename:"styles.css",
+    })],
     module: {
         rules: [{
                 test: /\.(js|jsx)$/,
@@ -21,15 +24,13 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: [{
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                    },
-                ],
-            },
+                test:/\.css$/,
+                use:[
+                  MiniCssExtractPlugin.loader,
+                  "css-loader",
+                  "postcss-loader"
+                ]
+            }
         ],
     }
 };
