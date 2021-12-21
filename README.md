@@ -13,19 +13,19 @@ This project also makes use of PHP `namespaces`.
 The default structure for this project is:
 
 ```
-wordpress-react-plugin
-│
-└───frontend
-│   │   App.js
-│   │   index.js
-│   │   package.json
-│   │   style.css
-└───plugin
-|   └───assets
-|   └───includes
-|   │   |    Ajax.php
-|   │   |    App.php
-|   │   |    Registers.php
+wordpress-react-plugin/
+└───frontend/
+    └───src/
+    |   │   App.js
+    |   │   index.js
+    |   │   style.css
+    │   package.json
+└───plugin/
+    └───assets/
+    └───includes/
+    │   |    Ajax.php
+    │   |    App.php
+    │   |    Registers.php
 |   plugin.php
 |   composer.json
 README.md

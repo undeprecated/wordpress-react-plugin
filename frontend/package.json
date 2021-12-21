@@ -1,8 +1,8 @@
 {
   "name": "wordpress-react-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A starter template for creating WordPress plugins using React.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --mode=development --watch",
