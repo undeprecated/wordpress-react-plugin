@@ -33,7 +33,7 @@ README.md
 
 `frontend` is where all of your React/JavaScript code will go. Consider this your "development" directory for all things react. This project is setup to use bable and webpack to build your frontend javascript and CSS assets, minify them, and place them into the `plugin/assets/` directory to be used by your plugin.
 
-`plugin` directory is for your WordPress plugin and should consist mainly of your plugin's PHP code. `plugin/plugin.php` is your main plugin file which will `include` all of the files your plugin needs. `plugin/includes/` direcotry should contain your plugin's business logic. The `plugin/assets` directory is where your JS, CSS, and images should go.
+`plugin` directory is for your WordPress plugin and should consist mainly of your plugin's PHP code. `plugin/plugin.php` is your main plugin file which will `include` all of the files your plugin needs. `plugin/includes/` direcotry should contain your plugin's business logic. The `plugin/assets` directory is where your JS, CSS, and images should go. Webpack is configured to compile your `frontend` CSS and JS files into `plugin/assets`.
 
 `App.php` is the file that will create your plugin's menu in WordPress and have your frontend JS app load when a user clicks on the menu to your plugin.
 
@@ -51,11 +51,11 @@ README.md
 
 `git clone https://github.com/undeprecated/wordpress-react-plugin.git`
 
-`composer install` (optional, see Note)
+`cd frontend && npm install`
 
-`npm install`
+`cd frontend && npm run setup`
 
-`npm run setup`
+`cd plugin && composer install` (optional, see Note)
 
 *NOTE:* If you are not using composer then make sure to remove `require_once 'vendor/autoload.php';` from your plugin.php file.
 

@@ -16,7 +16,7 @@ define('${DEFINE_BASE}_BASE_FILE', plugin_basename(__FILE__));
 define('${DEFINE_BASE}_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
- * Delete this ff you are NOT using Composer.
+ * Delete this if you are NOT using Composer, but be sure to require files in include directory.
  */
 require_once 'vendor/autoload.php';
 

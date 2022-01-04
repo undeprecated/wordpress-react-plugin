@@ -54,6 +54,8 @@ class App
 
     /**
      * Creates a div to bootstrap the frontend app.
+     * 
+     * You can use this as a way to hook static PHP values into your frontend applicaiton.
      */
     public static function plugin_front_end()
     {
