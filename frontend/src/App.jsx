@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react'
 //
-import useWordPressAjax from "./hooks/useWordPressAjax";
+import useWordPressAjax from './hooks/useWordPressAjax'
 
 const App = () => {
-  const wp = useWordPressAjax();
+  const wp = useWordPressAjax()
 
   const handleClick = async () => {
     const data = {
-      action: "save_config",
-    };
+      action: 'save_config'
+    }
 
-    const response = await wp.fetch(data);
+    const response = await wp.sendAjaxRequest(data)
 
-    alert(response);
-  };
+    alert(response)
+  }
 
   return (
     <React.Fragment>
@@ -21,7 +21,7 @@ const App = () => {
       <p>A button that makes an ajax request to your WordPress backend.</p>
       <button onClick={handleClick}>Save Config</button>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default App;
+export default App
