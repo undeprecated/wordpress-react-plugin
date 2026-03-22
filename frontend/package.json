@@ -1,6 +1,6 @@
 {
   "name": "wordpress-react-plugin",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A starter template for creating WordPress plugins using React.",
   "main": "src/index.jsx",
   "scripts": {
@@ -17,7 +17,7 @@
     "starter",
     "template"
   ],
-  "author": "Nick Curry",
+  "author": "Undprecated",
   "license": "ISC",
   "dependencies": {
     "react": "^19.2.4",

@@ -15,7 +15,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.jsx',
       name: 'App',
-      fileName: 'js/app',
+      fileName: 'app',
       cssFileName: 'styles'
     },
     outDir: '../plugin/assets',
@@ -28,6 +28,15 @@ export default defineConfig({
           return assetInfo.name
         }
       }
+    }
+  },
+  server: {
+    host: 'localhost',
+    port: 5173,
+    strictPort: true,
+    cors: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
     }
   },
   resolve: {

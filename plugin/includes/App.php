@@ -43,13 +43,58 @@ class App
      */
     public static function load_plugin_scripts()
     {
-        wp_enqueue_script(
-            '${plugin_slug}-plugin-app',
-            plugins_url( 'assets/js/app.js', ${DEFINE_BASE}_BASE_FILE),
-            [],
-            ${DEFINE_BASE}_VERSION,
-            true
-        );
+        add_filter('script_loader_tag', [__CLASS__, 'add_module_type'], 10, 3);
+
+        if (self::is_vite_dev()) {
+            // Prepend the React Refresh preamble before the vite-client tag so it
+            // runs first in document order (all module scripts are deferred).
+            add_filter('script_loader_tag', function($tag, $handle) {
+                if ($handle === 'vite-client') {
+                    $preamble = '<script type="module">
+import RefreshRuntime from "http://localhost:5173/@react-refresh";
+RefreshRuntime.injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => () => {};
+window.__vite_plugin_react_preamble_installed__ = true;
+</script>';
+                    return $preamble . $tag;
+                }
+                return $tag;
+            }, 11, 2); // priority 11 runs after add_module_type (10) so $tag already has type="module"
+
+            // Dev mode: load from Vite dev server
+            wp_enqueue_script('vite-client', 'http://localhost:5173/@vite/client', [], null, false);
+            wp_enqueue_script('${plugin_slug}-app', 'http://localhost:5173/src/index.jsx', ['vite-client'], null, false);
+        } else {
+            wp_enqueue_script(
+                '${plugin_slug}-app',
+                plugins_url( 'assets/js/app.js', ${DEFINE_BASE}_BASE_FILE),
+                [],
+                ${DEFINE_BASE}_VERSION,
+                true
+            );
+        }
+    }
+
+    private static function is_vite_dev(): bool
+    {
+        // Check for the existance of a .hot file created by Vite in the project root. This is a common pattern used by Vite to indicate dev mode.
+
+        $hot_file = dirname(__DIR__, 2) . '/.dev';
+        if (file_exists($hot_file)) {
+            return true;
+        }
+
+        return false;
+    }
+    
+
+    public static function add_module_type($tag, $handle, $src)
+    {
+        if (in_array($handle, ['vite-client', '${plugin_slug}-app'])) {
+            return '<script type="module" crossorigin="anonymous" src="' . esc_url($src) . '"></script>';
+        }
+        return $tag;
     }
 
     /**
