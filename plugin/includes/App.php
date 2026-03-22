@@ -68,7 +68,7 @@ window.__vite_plugin_react_preamble_installed__ = true;
         } else {
             wp_enqueue_script(
                 '${plugin_slug}-app',
-                plugins_url( 'assets/js/app.js', ${DEFINE_BASE}_BASE_FILE),
+                plugins_url( 'assets/js/app.mjs.js', ${DEFINE_BASE}_BASE_FILE),
                 [],
                 ${DEFINE_BASE}_VERSION,
                 true

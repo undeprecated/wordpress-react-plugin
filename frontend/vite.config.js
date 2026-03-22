@@ -18,7 +18,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.jsx',
       name: 'App',
-      fileName: 'app',
+      fileName: 'js/app',
       cssFileName: 'styles'
     },
     outDir: '../plugin/assets',
