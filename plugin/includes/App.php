@@ -74,6 +74,10 @@ window.__vite_plugin_react_preamble_installed__ = true;
                 true
             );
         }
+
+        wp_localize_script('${plugin_slug}-app', '${plugin_slug}_data', array(
+            'nonce' => wp_create_nonce('${plugin_slug}_ajax'),
+        ));
     }
 
     private static function is_vite_dev(): bool

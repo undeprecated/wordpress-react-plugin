@@ -15,7 +15,21 @@ class Ajax
 
     public static function save_config()
     {
+        self::verify_request();
+
         echo 'Save completed.';
         wp_die();
+    }
+
+    /**
+     * Verify the current request has a valid nonce and comes from an admin user.
+     * Must be called at the top of every public AJAX handler.
+     */
+    private static function verify_request()
+    {
+        if ( ! current_user_can('manage_options') ) {
+            wp_die( -1, '', array( 'response' => 403 ) );
+        }
+        check_ajax_referer('${plugin_slug}_ajax', 'nonce');
     }
 }

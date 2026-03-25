@@ -6,9 +6,12 @@ export default function useWordPressAjax () {
   const sendAjaxRequest = async data => {
     try {
       setFetching(true)
+      const requestData = Object.assign({}, data, {
+        nonce: window.${plugin_slug}_data && window.${plugin_slug}_data.nonce,
+      });
       const response = await fetch(window.ajaxurl, {
         method: 'POST',
-        body: new URLSearchParams(data),
+        body: new URLSearchParams(requestData).toString(),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
