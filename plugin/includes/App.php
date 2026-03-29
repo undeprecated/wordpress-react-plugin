@@ -7,19 +7,55 @@ namespace ${namespace};
 class App
 {
     public static $menu_icon = 'dashicons-admin-plugins';
+    
+    /**
+     * Plugin version. Used for cache busting of frontend assets. Update this with every release.
+     */
+    const VERSION = '${version}';
 
-    public static function init()
+    /**
+     * Name of the plugin. Used for menu and other places.
+     */
+    const NAME = '${plugin_name}';
+
+    /**
+     * Name of plugin's main entry file
+     */
+    const MAIN_FILENAME = "plugin.php";
+
+    /**
+	 * Plugin main file __FILE__
+	 *
+	 * @var string
+	 */
+	private static $file;
+
+    public static function init($file)
+    {
+        self::$file = $file;
+        self::register_hooks();
+    }
     {
         add_action('admin_menu', [__CLASS__, 'register_plugin_menu']);
+    }
+
+    public static function folder()
+    {
+        return plugin_basename( self::$file );
+    }
+
+    public static function slug()
+    {
+        return self::folder() . self::MAIN_FILENAME;
     }
 
     public static function register_plugin_menu()
     {
         $menu = add_menu_page(
-            '${plugin_name}',
-            '${plugin_name}',
+            self::NAME, // Page title
+            self::NAME, // Menu title
             'manage_options',
-            '${plugin_slug}',
+            self::slug(),
             ['${namespace}\App', 'plugin_front_end'],
             self::$menu_icon,
             '81'
@@ -35,7 +71,7 @@ class App
      */
     public static function load_plugin_styles()
     {
-        wp_enqueue_style('${plugin_slug}-plugin-styles', plugins_url('/assets/styles.css', ${DEFINE_BASE}_BASE_FILE));
+        wp_enqueue_style( self::slug() . '-plugin-styles', plugins_url('/assets/styles.css', App::slug()));
     }
 
     /**
@@ -64,19 +100,19 @@ window.__vite_plugin_react_preamble_installed__ = true;
 
             // Dev mode: load from Vite dev server
             wp_enqueue_script('vite-client', 'http://localhost:5173/@vite/client', [], null, false);
-            wp_enqueue_script('${plugin_slug}-app', 'http://localhost:5173/src/index.jsx', ['vite-client'], null, false);
+            wp_enqueue_script( self::slug() . '-app', 'http://localhost:5173/src/index.jsx', ['vite-client'], null, false);
         } else {
             wp_enqueue_script(
-                '${plugin_slug}-app',
-                plugins_url( 'assets/js/app.mjs.js', ${DEFINE_BASE}_BASE_FILE),
+                self::slug() . '-app',
+                plugins_url( 'assets/js/app.mjs.js', App::slug()),
                 [],
-                ${DEFINE_BASE}_VERSION,
+                App::VERSION,
                 true
             );
         }
 
-        wp_localize_script('${plugin_slug}-app', '${plugin_slug}_data', array(
-            'nonce' => wp_create_nonce('${plugin_slug}_ajax'),
+        wp_localize_script(self::slug() . '-app', self::slug() . '_data', array(
+            'nonce' => wp_create_nonce(self::slug() . '_ajax'),
         ));
     }
 
@@ -95,7 +131,7 @@ window.__vite_plugin_react_preamble_installed__ = true;
 
     public static function add_module_type($tag, $handle, $src)
     {
-        if (in_array($handle, ['vite-client', '${plugin_slug}-app'])) {
+        if (in_array($handle, ['vite-client', self::slug() . '-app'])) {
             return '<script type="module" crossorigin="anonymous" src="' . esc_url($src) . '"></script>';
         }
         return $tag;

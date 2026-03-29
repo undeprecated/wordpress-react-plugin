@@ -8,11 +8,11 @@ namespace ${namespace};
 
 class Registers
 {
-    public static function init()
+    public static function init($file)
     {
-        register_activation_hook( ${DEFINE_BASE}_BASE_FILE, [ __CLASS__, 'on_activation' ] );
-        register_deactivation_hook( ${DEFINE_BASE}_BASE_FILE, [ __CLASS__, 'on_deactivate' ] );
-        register_uninstall_hook( ${DEFINE_BASE}_BASE_FILE, [ __CLASS__, 'on_uninstall' ] );
+        register_activation_hook( $file, [ __CLASS__, 'on_activation' ] );
+        register_deactivation_hook( $file, [ __CLASS__, 'on_deactivate' ] );
+        register_uninstall_hook( $file, [ __CLASS__, 'on_uninstall' ] );
     }
 
     public static function on_activation()

@@ -30,6 +30,6 @@ class Ajax
         if ( ! current_user_can('manage_options') ) {
             wp_die( -1, '', array( 'response' => 403 ) );
         }
-        check_ajax_referer('${plugin_slug}_ajax', 'nonce');
+        check_ajax_referer( App::slug() . '_ajax', 'nonce');
     }
 }
